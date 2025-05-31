@@ -34,3 +34,12 @@ jobs:
         with:
           name: coverage
           path: coverage/
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run e2e tests
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
