@@ -1,7 +1,10 @@
 name: Test
 on:
   workflow_call:
-
+    inputs:
+      FLAGSMITH_KEY:
+        required: true
+        type: string
 jobs:
   test-and-build:
     env:
