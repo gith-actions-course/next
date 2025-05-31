@@ -8,3 +8,5 @@ concurrency:
 jobs:
   run-tests:
     uses: ./.github/workflows/test.yaml
+    with:
+      FLAGSMITH_KEY: ${{ vars.FLAGSMITH_KEY}}
