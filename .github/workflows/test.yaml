@@ -23,13 +23,12 @@ jobs:
         run: npm typecheck
       - name: build project
         run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: .next/
       - name: Run unit tests
         run: npm run test
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: coverage
-          path: coverage/
       - name: Install playwright browsers
         run: npx playwright install --with-deps
       - name: Run e2e tests
