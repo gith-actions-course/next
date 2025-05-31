@@ -41,6 +41,13 @@ jobs:
         with:
           name: coverage
           path: coverage/
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libasound2 \
+            libffi-dev \
+            libx264-dev
       - name: Install playwright browsers
         run: npx playwright install --with-deps
       - name: Run e2e tests
