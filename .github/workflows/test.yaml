@@ -21,7 +21,6 @@ jobs:
       - name: Install Dependencies
         run: |
           npm ci
-          echo "$FLAGSMITH_KEY"
       - name: Check for formatting errors
         run: npm run format
       - name: Check for eslint
@@ -44,25 +43,12 @@ jobs:
       - name: Install system dependencies for Playwright
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libasound2 \
-            libatk-bridge2.0-0 \
-            libatk1.0-0 \
-            libcups2 \
-            libdrm2 \
-            libgbm1 \
-            libgtk-3-0 \
-            libnspr4 \
-            libnss3 \
-            libx11-xcb1 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            xdg-utils \
-            libffi-dev \
-            libx264-dev
-      - name: Install playwright browsers
-        run: npx playwright install-deps
+          sudo apt-get install -y
+      - name: Install Playwright Browsers
+        run: |
+          npx playwright install --with-deps
+          npx playwright install-deps
+          echo "Playwright browsers installed successfully."
       - name: Run e2e tests
         run: npm run test:e2e
       - uses: actions/upload-artifact@v4
