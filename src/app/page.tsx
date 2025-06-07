@@ -6,7 +6,8 @@ export default async function Home() {
   return (
     <main className="main">
       <div>
-        <h2>Hello World 3</h2>
+        <h2>Hello World</h2>
+        <h2>Hello World2</h2>
       </div>
       <Link href="/about">About</Link>
       <br />
