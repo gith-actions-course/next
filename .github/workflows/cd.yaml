@@ -27,5 +27,5 @@ jobs:
           publish: npx changeset tag
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
-      - run: echo '${{ toJson(steps.changesets.outputs }}'
+      - run: echo '${{ toJson(steps.changesets.outputs) }}'
 
