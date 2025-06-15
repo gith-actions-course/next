@@ -8,6 +8,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   create-version-pr-or-release:
+    outputs:
+      should-deploy: ${{steps.changesets.outputs.hasChangesets =='false'}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,4 +30,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
       - run: echo '${{ toJson(steps.changesets.outputs) }}'
-
+      - name: Set Release Version
+        if: steps.changesets.outputs.published == 'true'
+        id: get-version
+        run: echo "version=${{ fromJson(steps.changesets.outputs.publishedPackages)[0].
+          version }}" >> $GITHUB_OUTPUT
+  run-tests:
+    needs: create-version-pr-or-release
+    if: needs.create-version-pr-or-release.outputs.should-deploy=='true'
+    uses: ./.github/workflows/test.yaml
+    secrets: inherit
