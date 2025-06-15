@@ -39,4 +39,6 @@ jobs:
     needs: create-version-pr-or-release
     if: needs.create-version-pr-or-release.outputs.should-deploy=='true'
     uses: ./.github/workflows/test.yaml
+    with:
+      FLAGSMITH_KEY: ${{ vars.FLAGSMITH_KEY}}
     secrets: inherit
